@@ -1,0 +1,6 @@
+Material,Density_kg_m3,ThermalConductivity_W_mK,SpecificHeat_J_kgK,ThermalExpansion_1_K,YoungModulus_GPa,PoissonsRatio,MeltingPoint_C
+Copper,8960,401,385,16.5e-6,110,0.34,1085
+Cast Iron,7200,55,460,11e-6,170,0.28,1200
+Carbon Steel,7850,45,470,12e-6,210,0.30,1450
+Bentonite Clay,1900,1.5,800,8e-6,2.5,0.35,NA
+Granite,2700,3.2,790,7.9e-6,60,0.24,NA

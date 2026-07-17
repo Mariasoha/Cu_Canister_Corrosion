@@ -1,0 +1,11 @@
+Parameter,Symbol,Value,Unit
+RepositoryDepth,D,500,m
+CanisterLength,L,4.83,m
+CopperThickness,t_Cu,50,mm
+CastIronThickness,t_Fe,100,mm
+CanisterDiameter,Dia,1.05,m
+InitialTemperature,T0,90,C
+RockTemperature,Trock,15,C
+GroundSurfaceTemperature,Tsurface,10,C
+SimulationYears,tmax,1000000,year
+TimeStep,dt,1,year
