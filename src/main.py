@@ -1,34 +1,71 @@
+"""
+main.py
+---------------------------------
+Copper Canister Corrosion Model
+
+Module 1
+Repository Temperature
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 
-import constants
 from temperature import repository_temperature
 
-# ----------------------------------------
-# Simulation time
-# ----------------------------------------
 
-years = np.arange(0, 10001)
+def main():
 
-# ----------------------------------------
-# Repository temperatures
-# ----------------------------------------
+    print("=" * 50)
+    print("Copper Canister Corrosion Simulation")
+    print("=" * 50)
 
-initial_temperature = 90
-rock_temperature = 15
-cooling_constant = 0.001
+    years = np.arange(0, 1001)
 
-temperature = repository_temperature(
-    years,
-    initial_temperature,
-    rock_temperature,
-    cooling_constant
-)
+    initial_temperature = 90
 
-print("First 10 temperatures:")
+    ambient_temperature = 15
 
-for i in range(10):
-    print(
-        f"Year {years[i]} : "
-        f"{temperature[i]:.2f} °C"
+    decay_constant = 0.003
+
+    temperature = repository_temperature(
+        years,
+        initial_temperature,
+        ambient_temperature,
+        decay_constant
     )
+
+    print()
+    print("First 10 temperatures")
+
+    for i in range(10):
+        print(
+            f"Year {years[i]:4d} : "
+            f"{temperature[i]:6.2f} °C"
+        )
+
+    print("\nCreating temperature graph...")
+
+    plt.figure(figsize=(10, 6))
+
+    plt.plot(
+        years,
+        temperature,
+        linewidth=2,
+        label="Repository Temperature"
+    )
+
+    plt.title("Repository Temperature vs Time")
+    plt.xlabel("Time (Years)")
+    plt.ylabel("Temperature (°C)")
+    plt.grid(True)
+    plt.legend()
+
+    plt.savefig("figures/temperature_profile.png", dpi=300)
+
+    plt.show()
+
+    print("Temperature graph saved!")
+
+
+if __name__ == "__main__":
+    main()

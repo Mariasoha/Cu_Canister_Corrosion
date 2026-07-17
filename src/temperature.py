@@ -1,28 +1,48 @@
 """
 temperature.py
+-------------------------------
+Repository Temperature Module
 
-Repository cooling model
+Author : Maria
+Project: Copper Canister Corrosion Model
+
+This module calculates repository temperature
+using an exponential cooling equation.
 """
 
 import numpy as np
 
 
 def repository_temperature(
-    years,
-    initial_temperature,
-    rock_temperature,
-    cooling_constant
-):
+        years,
+        initial_temperature,
+        ambient_temperature,
+        decay_constant):
     """
-    Exponential cooling model
+    Calculate repository temperature.
 
-    T(t) = Trock + (T0 - Trock)e^(-kt)
+    Parameters
+    ----------
+    years : numpy.ndarray
+        Simulation time
+
+    initial_temperature : float
+        Initial canister temperature (°C)
+
+    ambient_temperature : float
+        Host rock temperature (°C)
+
+    decay_constant : float
+        Cooling constant (1/year)
+
+    Returns
+    -------
+    numpy.ndarray
+        Temperature profile
     """
 
-    temperature = (
-        rock_temperature +
-        (initial_temperature - rock_temperature)
-        * np.exp(-cooling_constant * years)
-    )
+    temperature = ambient_temperature + (
+        initial_temperature - ambient_temperature
+    ) * np.exp(-decay_constant * years)
 
     return temperature
