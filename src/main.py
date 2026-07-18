@@ -12,6 +12,7 @@ from materials import load_material_database, get_material
 from groundwater import load_groundwater_database
 from groundwater import get_parameter as get_groundwater_parameter
 from temperature import repository_temperature
+from corrosion import corrosion_rate
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -120,6 +121,25 @@ def main():
         ambient_temperature,
         decay_constant
     )
+
+    # =====================================
+    # Corrosion calculation
+    # =====================================
+
+    rate = corrosion_rate(
+        temperature[0],
+        sulfide,
+        ph
+    )
+
+    print("\nCopper Corrosion")
+    print("-" * 30)
+    print(f"Repository Temperature : {temperature[0]:.2f} °C")
+    print(f"Estimated Corrosion Rate : {rate:.6f} mm/year")
+
+    # =====================================
+    # Print temperatures
+    # =====================================
 
     print("\nFirst 10 Temperatures")
 
