@@ -3,14 +3,15 @@ main.py
 ---------------------------------
 Copper Canister Corrosion Model
 
-Module 1
-Repository Temperature
+Module 2
+Repository Temperature using CSV
 """
+
+from repository import load_repository_conditions, get_parameter
+from temperature import repository_temperature
 
 import numpy as np
 import matplotlib.pyplot as plt
-
-from temperature import repository_temperature
 
 
 def main():
@@ -19,14 +20,31 @@ def main():
     print("Copper Canister Corrosion Simulation")
     print("=" * 50)
 
-    years = np.arange(0, 1001)
+    # Load repository data
+    repository = load_repository_conditions(
+        "data/repository_conditions.csv"
+    )
 
-    initial_temperature = 90
+    initial_temperature = float(
+        get_parameter(repository, "InitialTemperature")
+    )
 
-    ambient_temperature = 15
+    ambient_temperature = float(
+        get_parameter(repository, "AmbientTemperature")
+    )
 
-    decay_constant = 0.003
+    decay_constant = float(
+        get_parameter(repository, "DecayConstant")
+    )
 
+    simulation_years = int(
+        get_parameter(repository, "SimulationYears")
+    )
+
+    # Simulation years
+    years = np.arange(0, simulation_years + 1)
+
+    # Temperature calculation
     temperature = repository_temperature(
         years,
         initial_temperature,
@@ -61,7 +79,6 @@ def main():
     plt.legend()
 
     plt.savefig("figures/temperature_profile.png", dpi=300)
-
     plt.show()
 
     print("Temperature graph saved!")
