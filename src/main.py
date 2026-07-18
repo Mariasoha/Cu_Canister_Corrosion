@@ -13,6 +13,7 @@ from groundwater import load_groundwater_database
 from groundwater import get_parameter as get_groundwater_parameter
 from temperature import repository_temperature
 from corrosion import corrosion_rate, remaining_thickness
+from diffusion import effective_sulfide
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -138,7 +139,25 @@ def main():
         )
 
         sulfide_history.append(current_sulfide)
+    
+    # =====================================
+    # Sulfide diffusion through bentonite
+    # =====================================
 
+    diffusion_factor = 0.30
+
+    effective_sulfide_history = []
+
+    for value in sulfide_history:
+
+        effective_value = effective_sulfide(
+            value,
+            diffusion_factor
+        )
+
+        effective_sulfide_history.append(
+            effective_value
+        )
     # =====================================
     # Corrosion calculation
     # =====================================
@@ -149,7 +168,7 @@ def main():
 
         rate = corrosion_rate(
             temperature[i],
-            sulfide_history[i],
+            effective_sulfide_history[i],
             ph
         )
 
