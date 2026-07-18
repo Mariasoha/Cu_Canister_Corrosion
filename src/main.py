@@ -3,12 +3,14 @@ main.py
 ---------------------------------
 Copper Canister Corrosion Model
 
-Module 3
-Repository Temperature + Material Database
+Module 4
+Repository + Materials + Groundwater + Temperature
 """
 
 from repository import load_repository_conditions, get_parameter
 from materials import load_material_database, get_material
+from groundwater import load_groundwater_database
+from groundwater import get_parameter as get_groundwater_parameter
 from temperature import repository_temperature
 
 import numpy as np
@@ -66,14 +68,51 @@ def main():
     print(f"Young's Modulus       : {copper['YoungsModulus']} GPa")
 
     # =====================================
-    # Simulation years
+    # Load groundwater database
     # =====================================
 
-    years = np.arange(0, simulation_years + 1)
+    groundwater = load_groundwater_database(
+        "data/groundwater.csv"
+    )
+
+    ph = get_groundwater_parameter(
+        groundwater,
+        "pH"
+    )["Value"]
+
+    chloride = get_groundwater_parameter(
+        groundwater,
+        "Chloride"
+    )["Value"]
+
+    sulfide = get_groundwater_parameter(
+        groundwater,
+        "Sulfide"
+    )["Value"]
+
+    oxygen = get_groundwater_parameter(
+        groundwater,
+        "DissolvedOxygen"
+    )["Value"]
+
+    eh = get_groundwater_parameter(
+        groundwater,
+        "Eh"
+    )["Value"]
+
+    print("\nGroundwater Chemistry")
+    print("-" * 30)
+    print(f"pH                 : {ph}")
+    print(f"Chloride           : {chloride} mg/L")
+    print(f"Sulfide            : {sulfide} mg/L")
+    print(f"Dissolved Oxygen   : {oxygen} mg/L")
+    print(f"Redox Potential    : {eh} mV")
 
     # =====================================
     # Temperature calculation
     # =====================================
+
+    years = np.arange(0, simulation_years + 1)
 
     temperature = repository_temperature(
         years,
@@ -82,10 +121,6 @@ def main():
         decay_constant
     )
 
-    # =====================================
-    # Print temperatures
-    # =====================================
-
     print("\nFirst 10 Temperatures")
 
     for i in range(10):
@@ -93,10 +128,6 @@ def main():
             f"Year {years[i]:4d} : "
             f"{temperature[i]:6.2f} °C"
         )
-
-    # =====================================
-    # Plot temperature
-    # =====================================
 
     print("\nCreating temperature graph...")
 

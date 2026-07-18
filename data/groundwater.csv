@@ -1,9 +1,7 @@
-Parameter,Symbol,Value,Unit
-pH,pH,8,-
-Chloride,Cl,0.10,mol/L
-Sulfide,HS,1e-5,mol/L
-DissolvedOxygen,O2,1e-6,mol/L
-GroundwaterVelocity,v,1e-10,m/s
-ElectricalConductivity,EC,1.5,S/m
-Pressure,P,5,MPa
-s
+Parameter,Value,Unit,Description
+pH,8.2,-,Groundwater pH
+Chloride,1200,mg/L,Chloride concentration
+Sulfide,0.001,mg/L,Dissolved sulfide concentration
+DissolvedOxygen,0.5,mg/L,Dissolved oxygen
+Eh,-200,mV,Redox potential
+
