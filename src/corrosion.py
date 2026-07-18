@@ -4,8 +4,6 @@ corrosion.py
 Copper corrosion model
 """
 
-import numpy as np
-
 
 def corrosion_rate(
     temperature,
@@ -33,3 +31,26 @@ def corrosion_rate(
     )
 
     return rate
+
+
+def remaining_thickness(
+    initial_thickness,
+    corrosion_rates
+):
+    """
+    Calculates remaining copper thickness.
+
+    corrosion_rates must be in mm/year.
+    """
+
+    thickness = []
+
+    current = initial_thickness
+
+    for rate in corrosion_rates:
+
+        current = current - rate
+
+        thickness.append(current)
+
+    return thickness
